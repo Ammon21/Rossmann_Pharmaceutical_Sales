@@ -1,0 +1,21 @@
+name: General Setup
+on: 
+  push:
+    branches:
+    - main
+jobs:
+  run:
+    runs-on: ubuntu-latest 
+    #container: docker://dvcorg/cml-py3:latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: setup
+      run: | 
+        pip install -r requirements.txt
+        #python scripts/script.py
+
+    #- name: run-tests
+      #run: |
+        #python -m unittest tests.test_script
+
+        
