@@ -31,8 +31,8 @@ to build and serve an end-to-end product that delivers this prediction to analys
 
 ## Install
 ```
-git clone https://github.com/benbel376/rossman_predictive_analysis.git
-cd rossman_predictive_analysis
+git clone https://github.com/Ammon21/Rossmann_Pharmaceutical_Sales
+cd Rossmann_Pharmaceutical_Sales
 pip install -r requirements.txt
 ```
 
@@ -62,7 +62,7 @@ the folder structure
 ![structure](outputs/folder_structure.txt)
 
 ### Data Processing and Analysis
-  - ![ML pipeline design](charts/pipeline.png?raw=true)
+  - ![ML pipeline design](plots/mlpipe.jpg?raw=true)
   
 ### Scripts
  - All the scripts used by the notebooks are inside the scripts folder.
