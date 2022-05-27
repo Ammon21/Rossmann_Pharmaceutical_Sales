@@ -1,0 +1,4 @@
+[core]
+    remote = remotename
+['remote "remotename"']
+    url = C:\Users\dell\Desktop\remotepath

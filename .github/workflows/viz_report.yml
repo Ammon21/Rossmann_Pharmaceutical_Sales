@@ -1,0 +1,43 @@
+name: data visualizations
+on: [push]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - uses: iterative/setup-cml@v1
+      - name: create visualization reports
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # run the script that generates the plots
+          # python my_scripts/plot.py
+
+          # basic description of the plots
+          echo "# Basic data visualizations" >> report.md
+
+          # Post reports as comments in GitHub PRs
+          echo "## Sales across state holidays" >> report.md
+          cml publish plots/1.PNG --md >> report.md
+
+          echo "## Sales and customers across store types" >> report.md
+          cml publish plots/2.PNG --md >> report.md
+
+          echo "## Sales and customers across promotion interval" >> report.md
+          cml publish plots/5.PNG --md >> report.md
+
+          echo "## Sales across competition distance" >> report.md
+          cml publish plots/7.PNG --md >> report.md
+
+          echo "## Top seven features and sales corelation" >> report.md
+          cml publish plots/8.PNG --md >> report.md
+
+          echo "## Sales across store type, promotion and month" >> report.md
+          cml publish plots/10.PNG --md >> report.md
+
+          echo "## Sales across assortment, promotion and month" >> report.md
+          cml publish plots/12.PNG --md >> report.md
+
+          cml send-comment report.md
+
