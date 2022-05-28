@@ -1,0 +1,64 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import plotly.express as px
+
+
+from viz import *
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
+header = st.container()
+dataset = st.container()
+features = st.container()
+
+with header:
+    st.title('Rossman Pharmaceutical Sales Analysis And Forecast')
+    st.text("Rossmann Pharmaceuticals are multi-city pharmaceuticals stores.\nThe company's finance team is in need of sale forecast in all of their stores\nacross several cities six weeks ahead of time managers in individual stores\nrely on their years of experience as well as their personal judgement to forecast\nsales until now.")
+    st.image('pills.jpg', caption='Pharmaceutical Company')
+    
+with dataset:
+    st.title('Datasets')
+    sdb = pd.read_csv(r"C:\\Users\\Lebawi AC\\Desktop\\store.csv", encoding="latin-1")
+    tdb = pd.read_csv(r"C:\\Users\\Lebawi AC\\Desktop\\train.csv", encoding="latin-1")
+    st.subheader('Store data')
+    st.write(sdb.head())
+    st.subheader('Train data')
+    st.write(tdb.head())
+    
+    st.title('Univariate Analysis')
+    
+    daydist = plot_count(tdb, 'DayOfWeek')
+    st.pyplot(daydist)
+     
+    salesdist = plot_hist(tdb, 'Sales')
+    st.pyplot(salesdist)
+    
+    custdist = plot_hist(tdb, 'Customers')
+    st.pyplot(custdist)
+    
+    opendist = plot_count(tdb, 'Open')
+    st.pyplot(opendist)
+    
+    promodist = plot_count(tdb, 'Promo')
+    st.pyplot(promodist)
+    
+    st.title('Bivariate Analysis')
+    fig, (axis1,axis2) = plt.subplots(1,2,figsize=(12,4))
+    sns.barplot(x='SchoolHoliday', y='Sales', data=tdb, ax= axis1).set_title('Comparison of sales vs StateHoliday')
+    sns.barplot(x='SchoolHoliday', y='Customers', data=tdb, ax=axis2).set_title('Comparison of customers vs StateHoliday')
+    st.pyplot(fig)
+    
+    st.text('The bivariate analysis between Sales and state holidays\n shows that there are more sales on ordinary days than on holidays. ')
+    fig, (axis1,axis2) = plt.subplots(1,2,figsize=(12,4))
+    # holidays and no_holidays
+    sns.barplot(x='StateHoliday', y='Sales', data=tdb, ax=axis1).set_title('Comparison of sales during StateHolidays and ordinary days')
+    # holidays only
+    mask = (tdb["StateHoliday"] != "0") & (tdb["Sales"] > 0)
+    sns.barplot(x='StateHoliday', y='Sales', data=tdb[mask], ax=axis2).set_title('Sales during Stateholidays')
+    st.pyplot(fig)
+    st.image('b.png', caption='Pharmaceutical Company')
+    
+
+
+  
